@@ -1,74 +1,155 @@
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
+import { useState } from "react";
 
-function Navbar(){
+function Navbar({ cart = [], setShowCart }) {
 
-const logout = async () => {
+const [location,setLocation]=useState(
+"Madhapur"
+);
+
+const logout=async()=>{
+
 await signOut(auth);
+
 window.location.reload();
+
 };
 
 return(
 
-<nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow px-3">
+<nav
 
-<div className="container-fluid">
+className="
+navbar
+navbar-dark
+bg-dark
+px-4
+shadow
+sticky-top
+"
 
-{/* Brand */}
-<span className="navbar-brand fw-bold text-warning">
- Flechazo Gold
+>
+
+<div className="d-flex align-items-center">
+
+<span
+className="
+navbar-brand
+text-warning
+fw-bold
+fs-3
+me-4
+"
+>
+
+Flechazo Gold
+
 </span>
 
-{/* Toggle button for mobile */}
-<button
-className="navbar-toggler"
-type="button"
-data-bs-toggle="collapse"
-data-bs-target="#navbarContent"
+
+<select
+
+className="form-select"
+
+style={{
+
+width:"180px"
+
+}}
+
+value={location}
+
+onChange={(e)=>
+setLocation(
+e.target.value
+)
+}
+
 >
-<span className="navbar-toggler-icon"></span>
-</button>
 
-{/* Menu */}
-<div className="collapse navbar-collapse" id="navbarContent">
+<option>Madhapur</option>
 
-<ul className="navbar-nav me-auto mb-2 mb-lg-0">
+<option>Gachibowli</option>
 
-<li className="nav-item">
-<a className="nav-link text-white" href="#">
-🏠 Home
-</a>
-</li>
+<option>Kukatpally</option>
 
-<li className="nav-item">
-<a className="nav-link text-white" href="#">
-👤 Profile
-</a>
-</li>
+<option>Hitech City</option>
 
-<li className="nav-item">
-<a className="nav-link text-white" href="#">
-📦 Orders
-</a>
-</li>
+<option>Kondapur</option>
 
-<li className="nav-item">
-<a className="nav-link text-white" href="#">
-📍 Location
-</a>
-</li>
+<option>Banjara Hills</option>
 
-</ul>
+<option>Jubilee Hills</option>
 
-{/* Logout Button */}
-<button
-className="btn btn-outline-warning"
-onClick={logout}
->
-Logout
-</button>
+<option>Ameerpet</option>
+
+</select>
 
 </div>
+
+
+<div className="d-flex gap-3">
+
+<button
+
+className="btn btn-warning position-relative"
+
+onClick={()=>
+
+setShowCart(
+true
+)
+
+}
+
+>
+
+🛒 Cart
+
+{
+
+cart.length>0 && (
+
+<span
+
+className="
+position-absolute
+top-0
+start-100
+translate-middle
+badge
+rounded-pill
+bg-danger
+"
+
+>
+
+{cart.length}
+
+</span>
+
+)
+
+}
+
+</button>
+
+
+<button
+
+className="
+btn
+btn-outline-warning
+"
+
+onClick={logout}
+
+>
+
+Logout
+
+</button>
 
 </div>
 
